@@ -1,0 +1,48 @@
+[
+  {
+    "id": "pagina_noticias",
+    "name": "Página de Noticias",
+    "description": "Sitio estilo portal con secciones y páginas internas.",
+    "url": "https://perunoticias.netlify.app",
+    "image": "./img/pagina_noticias.jpg",
+    "stack": "HTML / CSS / JS",
+    "tags": ["noticias", "portal", "multi-pagina"]
+  },
+  {
+    "id": "pagina_de_servicio_fotocopiadoras",
+    "name": "Servicio de Fotocopiadoras",
+    "description": "Landing para servicios con secciones y llamado a la acción.",
+    "url": "https://ofercopyperu.netlify.app",
+    "image": "./img/pagina_de_servicio_fotocopiadoras.jpg",
+    "stack": "HTML / CSS / JS",
+    "tags": ["negocio", "landing", "servicios"]
+  },
+  {
+    "id": "paginacolegio",
+    "name": "Página de Colegio",
+    "description": "Sitio informativo para institución educativa.",
+    "url": "https://colegiojesusredentor.netlify.app",
+    "image": "./img/pagina_colegio.jpg",
+    "stack": "HTML / CSS / JS",
+    "tags": ["educacion", "institucion", "informativo"]
+  },
+  {
+    "id": "servicios_streming",
+    "name": "Servicios de Streaming",
+    "description": "Página enfocada en presentación de planes/servicios.",
+    "url": "https://renatostreaming.netlify.app",
+    "image": "./img/servicios_streaming.png",
+    "stack": "HTML",
+    "tags": ["streaming", "planes", "ventas"]
+  },
+  
+  {
+    "id": "azzorti",
+    "name": "Azzorti",
+    "description": "Landing para catálogo/presentación de producto.",
+    "url": "https://azzorti.netlify.app",
+    "image": "./img/azzorti.jpg",
+    "stack": "HTML",
+    "tags": ["landing", "catalogo", "negocio"]
+  }
+]

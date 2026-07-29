@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios de Streaming - Catálogo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .service-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .whatsapp-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .whatsapp-btn:hover {
+            background: linear-gradient(45deg, #128C7E, #25D366);
+            transform: scale(1.05);
+        }
+
+        .whatsapp-btn:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+        .service-card:nth-child(5) { animation-delay: 0.5s; }
+        .service-card:nth-child(6) { animation-delay: 0.6s; }
+        .service-card:nth-child(7) { animation-delay: 0.7s; }
+        .service-card:nth-child(8) { animation-delay: 0.8s; }
+        .service-card:nth-child(9) { animation-delay: 0.9s; }
+        .service-card:nth-child(10) { animation-delay: 1.0s; }
+        .service-card:nth-child(11) { animation-delay: 1.1s; }
+        .service-card:nth-child(12) { animation-delay: 1.2s; }
+        .service-card:nth-child(13) { animation-delay: 1.3s; }
+        .service-card:nth-child(14) { animation-delay: 1.4s; }
+        .service-card:nth-child(15) { animation-delay: 1.5s; }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .service-content {
+                padding: 20px;
+            }
+            
+            .service-title {
+                font-size: 1.3rem;
+            }
+            
+            body {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .service-image {
+                height: 150px;
+            }
+            
+            .service-content {
+                padding: 15px;
+            }
+            
+            .whatsapp-btn {
+                padding: 12px;
+                font-size: 1rem;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            padding: 20px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Servicios de Streaming</h1>
+            <p>Disfruta del mejor contenido al mejor precio</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="imagenes/netflix.jpg" alt="Netflix" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Netflix</h3>
+                    <p class="service-description">El mejor catálogo de películas, series y documentales. Disfruta de contenido original y exclusivo.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Netflix" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/vix.jpg" alt="VIX" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">VIX</h3>
+                    <p class="service-description">Streaming gratuito con miles de películas y series en español. Contenido latinoamericano.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20VIX" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/viki Rakuten.jpg" alt="Viki Rakuten" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Viki Rakuten</h3>
+                    <p class="service-description">El mejor contenido asiático: dramas coreanos, chinos, japoneses y más. Con subtítulos en español.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Viki%20Rakuten" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/deezer.jpg" alt="Deezer" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Deezer</h3>
+                    <p class="service-description">Millones de canciones y podcasts a tu disposición. Música sin límites para todos los gustos.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Deezer" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/prime.jpg" alt="Prime Video" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Prime Video</h3>
+                    <p class="service-description">Amazon Prime Video con películas, series y contenido original. Incluye beneficios Prime.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Prime%20Video" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/disney.jpg" alt="Disney+" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Disney+</h3>
+                    <p class="service-description">Todo el universo Disney, Pixar, Marvel, Star Wars y National Geographic en un solo lugar.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Disney%2B" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/crunchyroll.jpg" alt="Crunchyroll" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Crunchyroll</h3>
+                    <p class="service-description">La plataforma número uno de anime. Miles de series y películas de anime al instante.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Crunchyroll" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/dgo.jpg" alt="DIRECTV GO" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">DIRECTV GO</h3>
+                    <p class="service-description">Deportes en vivo, películas, series y canales de TV. El mejor contenido deportivo.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20DIRECTV%20GO" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/canva.jpg" alt="Canva" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Canva Pro</h3>
+                    <p class="service-description">Diseño profesional fácil de usar. Crea imágenes, videos, presentaciones y más.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Canva%20Pro" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/paramount+.jpg" alt="Paramount+" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Paramount+</h3>
+                    <p class="service-description">Películas, series y contenido original de Paramount. Incluye CBS y MTV.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Paramount%2B" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/spotify.jpg" alt="Spotify" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Spotify</h3>
+                    <p class="service-description">La plataforma de música líder mundial. Podcasts, playlists y música sin anuncios.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Spotify" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/office.jpg" alt="Office 365" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">Office 365</h3>
+                    <p class="service-description">Paquete completo de Microsoft: Word, Excel, PowerPoint, Outlook y 1TB de almacenamiento.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20Office%20365" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/max.jpg" alt="HBO Max" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">HBO Max</h3>
+                    <p class="service-description">Todo el contenido de HBO, Warner Bros, DC Comics y más. Series y películas exclusivas.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20HBO%20Max" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/iptv_full.jpg" alt="IPTV Full" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">IPTV Full</h3>
+                    <p class="service-description">Servicio completo de TV por internet con miles de canales de todo el mundo en HD.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20IPTV%20Full" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="imagenes/ipvt_premiun.jpg" alt="IPTV Premium" class="service-image">
+                <div class="service-content">
+                    <h3 class="service-title">IPTV Premium</h3>
+                    <p class="service-description">La mejor calidad IPTV con canales premium, deportes, películas y series sin cortes.</p>
+                    <a href="https://wa.me/51955212016?text=Hola%20estoy%20interesado%20en%20IPTV%20Premium" target="_blank" class="whatsapp-btn">
+                        📱 Solicitar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 Servicios de Streaming | Todos los derechos reservados</p>
+            <p>Contáctanos directamente por WhatsApp para más información</p>
+        </div>
+    </div>
+
+    <script>
+        // Animación de aparición gradual al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar todas las tarjetas de servicio
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Efecto de ripple en los botones
+            const buttons = document.querySelectorAll('.whatsapp-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Contador de visitas (simulado)
+            let visitCount = localStorage.getItem('visitCount') || 0;
+            visitCount++;
+            localStorage.setItem('visitCount', visitCount);
+            
+            console.log(`Visitas: ${visitCount}`);
+        });
+
+        // Preload de imágenes para mejor rendimiento
+        const images = document.querySelectorAll('.service-image');
+        images.forEach(img => {
+            const tempImg = new Image();
+            tempImg.src = img.src;
+        });
+    </script>
+</body>
+</html>

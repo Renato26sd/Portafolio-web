@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NewsVibe 📊 - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
+    <!-- Dependencias para Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Dependencias para DC.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/4.2.7/dc.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter2/1.5.4/crossfilter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/4.2.7/dc.min.js"></script>
+    <style>
+      /* Estilos para los gráficos DC.js */
+      .dc-chart {
+        font-family: 'Inter', sans-serif;
+      }
+      .dc-chart .axis text {
+        font-size: 12px;
+      }
+      .dc-chart .axis line,
+      .dc-chart .axis path {
+        stroke: #e0e0e0;
+      }
+      .dc-chart .axis .tick line {
+        stroke: #e0e0e0;
+      }
+      .dc-chart .axis .domain {
+        stroke: #e0e0e0;
+      }
+      .dc-chart .row text {
+        fill: #333;
+        font-size: 12px;
+      }
+      #dc-data-count {
+        font-size: 14px;
+        color: #666;
+        margin-top: 10px;
+      }
+      #dc-data-count a {
+        color: var(--color-primary);
+        text-decoration: none;
+      }
+      #dc-data-count a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-glass sticky-top">
+      <div class="container">
+        <a class="navbar-brand brand-gradient" href="./index.html">
+          <i class="bi bi-lightning-charge-fill me-2"></i>
+          <span class="brand-text">NewsVibe</span>
+        </a>
+        <div class="ms-auto d-flex gap-2 align-items-center">
+          <div id="premiumBadge" class="badge-premium d-none">✨ Premium</div>
+          <button id="btnToggleTheme" class="btn-icon" title="Cambiar tema claro/oscuro"><i class="bi bi-moon-stars-fill"></i></button>
+          <button id="btnColorBlind" class="btn btn-outline-secondary ms-2" title="Modo accesible para daltonismo"><i class="bi bi-eyeglasses me-1"></i>Modo daltonismo</button>
+          <button id="btnAdminMode" class="btn btn-outline-primary ms-2"><i class="bi bi-shield-lock me-2"></i>Modo Admin</button>
+          <a class="btn-gradient" href="./index.html"><i class="bi bi-house-fill me-2"></i>Inicio</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="py-5">
+      <div class="container">
+        <div class="mb-5">
+          <h1 class="hero-title" style="font-size: 2.5rem;">
+            <span id="dashboardTitle">Tu Dashboard</span> <span class="gradient-text" id="adminBadge" style="display: none;">(Modo Admin)</span>
+          </h1>
+          <p class="hero-subtitle" style="font-size: 1.1rem;" id="dashboardSubtitle">Estadísticas y métricas de tu actividad</p>
+        </div>
+        
+        <!-- Admin View Selector -->
+        <div id="adminViewSelector" class="mb-4 d-none">
+          <div class="btn-group w-100" role="group">
+            <button type="button" class="btn btn-outline-primary active" data-view="overview">Vista General</button>
+            <button type="button" class="btn btn-outline-primary" data-view="tactical">Vista Táctica</button>
+            <button type="button" class="btn btn-outline-primary" data-view="operational">Vista Operativa</button>
+            <button type="button" class="btn btn-outline-primary" data-view="analytics">Análisis Avanzado</button>
+          </div>
+        </div>
+
+        <!-- Standard User View -->
+        <div id="userDashboard" class="dashboard-view">
+          <div class="row g-4 mb-5">
+          <div class="col-md-3">
+            <div class="sidebar-card h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <i class="bi bi-clock-history" style="font-size: 2rem; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                </div>
+                <div class="text-muted small mb-2">Tiempo promedio</div>
+                <div id="avgTime" class="display-6 fw-bold" style="color: var(--color-primary);">0s</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="sidebar-card h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <i class="bi bi-eye-fill" style="font-size: 2rem; background: var(--gradient-secondary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                </div>
+                <div class="text-muted small mb-2">Noticias vistas</div>
+                <div id="totalViews" class="display-6 fw-bold" style="color: var(--color-accent);">0</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="sidebar-card h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <i class="bi bi-bookmark-heart-fill" style="font-size: 2rem; background: var(--gradient-success); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                </div>
+                <div class="text-muted small mb-2">Guardados</div>
+                <div id="savedCount" class="display-6 fw-bold" style="color: var(--color-success);">0</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="sidebar-card h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <i class="bi bi-bell-fill" style="font-size: 2rem; background: var(--gradient-warm); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                </div>
+                <div class="text-muted small mb-2">Notificaciones hoy</div>
+                <div id="notifUsed" class="display-6 fw-bold" style="color: #fa709a;">0/5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <div class="sidebar-card">
+              <div class="sidebar-header">
+                <h3 class="sidebar-title">
+                  <i class="bi bi-bar-chart-fill me-2"></i>
+                  Top categorías por vistas
+                </h3>
+              </div>
+              <div class="p-4">
+                <div id="categoriesBars" class="bars"></div>
+                <div class="small text-muted mt-3">
+                  <i class="bi bi-info-circle me-1"></i>
+                  Datos almacenados localmente en tu navegador
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="sidebar-card h-100">
+              <div class="sidebar-header">
+                <h3 class="sidebar-title">
+                  <i class="bi bi-bookmark-star-fill me-2"></i>
+                  Guardados
+                </h3>
+                <a class="btn-icon-sm" href="./index.html" title="Gestionar">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+              </div>
+              <ul id="savedList" class="sidebar-list"></ul>
+            </div>
+          </div>
+          </div>
+        </div>
+        
+        <!-- Admin Views -->
+        <div id="adminDashboard" class="dashboard-view d-none">
+          <!-- Strategic View (Long-term) -->
+          <div id="strategicView" class="dashboard-view-content">
+            <h3 class="mb-4">Visión Estratégica</h3>
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Tendencias Mensuales</h5>
+                    <canvas id="monthlyTrendsChart" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">Distribución de Usuarios</h5>
+                    <canvas id="userDistributionChart" height="250"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">Crecimiento Anual</h5>
+                    <canvas id="annualGrowthChart" height="250"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Tactical View (Mid-term) -->
+          <div id="tacticalView" class="dashboard-view-content d-none">
+            <h3 class="mb-4">Vista Táctica</h3>
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Actividad Semanal</h5>
+                    <canvas id="weeklyActivityChart" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">Rendimiento de Contenido</h5>
+                    <canvas id="contentPerformanceChart" height="250"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">Métricas Clave</h5>
+                    <div id="kpiCards" class="row g-3">
+                      <div class="col-6">
+                        <div class="card bg-light">
+                          <div class="card-body text-center">
+                            <h6 class="text-muted mb-1">Usuarios Activos</h6>
+                            <h3 class="mb-0">1,245</h3>
+                            <small class="text-success"><i class="bi bi-arrow-up"></i> 12%</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="card bg-light">
+                          <div class="card-body text-center">
+                            <h6 class="text-muted mb-1">Tasa de Retención</h6>
+                            <h3 class="mb-0">78%</h3>
+                            <small class="text-success"><i class="bi bi-arrow-up"></i> 5%</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Operational View (Real-time) -->
+          <div id="operationalView" class="dashboard-view-content d-none">
+            <h3 class="mb-4">Vista Operativa</h3>
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <h5 class="card-title mb-0">Actividad en Tiempo Real</h5>
+                      <div class="badge bg-primary">Actualizado hace <span id="lastUpdate">0</span>s</div>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Usuario</th>
+                            <th>Acción</th>
+                            <th>Página</th>
+                            <th>Hora</th>
+                          </tr>
+                        </thead>
+                        <tbody id="realtimeActivity">
+                      
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">Alertas del Sistema</h5>
+                    <div id="systemAlerts" class="alert-list">
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">Estado del Servidor</h5>
+                    <div class="server-status">
+                      <div class="d-flex justify-content-between mb-2">
+                        <span>Uso de CPU</span>
+                        <span id="cpuUsage">0%</span>
+                      </div>
+                      <div class="progress mb-3" style="height: 8px;">
+                        <div id="cpuBar" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
+                      </div>
+                      <div class="d-flex justify-content-between mb-2">
+                        <span>Uso de Memoria</span>
+                        <span id="memoryUsage">0%</span>
+                      </div>
+                      <div class="progress" style="height: 8px;">
+                        <div id="memoryBar" class="progress-bar bg-info" role="progressbar" style="width: 0%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Analytics View (Advanced - Google Charts & DC.js) -->
+          <div id="analyticsView" class="dashboard-view-content d-none">
+            <h3 class="mb-4">Análisis Avanzado</h3>
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Distribución de Categorías </h5>
+                    <div id="googlePieChart" style="width: 100%; height: 400px;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Análisis de Actividad </h5>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div id="dc-line-chart">
+                          <h6>Actividad por Hora del Día</h6>
+                          <div id="time-chart" style="height: 300px;"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div id="dc-row-chart">
+                          <h6>Top Categorías</h6>
+                          <div id="category-chart" style="height: 300px;"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-12">
+                        <div id="dc-data-count" class="small text-muted">
+                          <span class="filter-count"></span> seleccionados de <span class="total-count"></span> registros | 
+                          <a href="javascript:dc.filterAll(); dc.renderAll();">Reiniciar filtros</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer-modern">
+      <div class="container">
+        <div class="footer-bottom">
+          <p class="mb-0">© <span id="year"></span> NewsVibe — Proyecto educativo</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/premium.js"></script>
+    <script src="./js/metrics.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+      google.charts.load('current', {packages: ['corechart']});
+      // Dashboard data load
+      document.addEventListener('DOMContentLoaded', () => {
+        const yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+        
+        // Admin mode toggle
+        const adminModeBtn = document.getElementById('btnAdminMode');
+        const colorBlindBtn = document.getElementById('btnColorBlind');
+        const adminViewSelector = document.getElementById('adminViewSelector');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const userDashboard = document.getElementById('userDashboard');
+        const adminBadge = document.getElementById('adminBadge');
+        const dashboardTitle = document.getElementById('dashboardTitle');
+        const dashboardSubtitle = document.getElementById('dashboardSubtitle');
+        
+        let isAdminMode = localStorage.getItem('adminMode') === 'true';
+        let isColorBlind = localStorage.getItem('colorBlindMode') === 'true';
+        
+        function toggleAdminMode() {
+          isAdminMode = !isAdminMode;
+          localStorage.setItem('adminMode', isAdminMode);
+          updateUI();
+        }
+
+        function applyColorBlindState() {
+          const htmlEl = document.documentElement;
+          if (isColorBlind) {
+            htmlEl.setAttribute('data-colorblind', 'on');
+            colorBlindBtn?.classList.add('btn-secondary');
+            colorBlindBtn?.classList.remove('btn-outline-secondary');
+          } else {
+            htmlEl.removeAttribute('data-colorblind');
+            colorBlindBtn?.classList.add('btn-outline-secondary');
+            colorBlindBtn?.classList.remove('btn-secondary');
+          }
+          // Redibujar gráficos si estamos en análisis avanzado
+          if (document.getElementById('analyticsView') && !document.getElementById('analyticsView').classList.contains('d-none')) {
+            initAnalyticsView();
+          }
+        }
+
+        function toggleColorBlindMode() {
+          isColorBlind = !isColorBlind;
+          localStorage.setItem('colorBlindMode', isColorBlind);
+          applyColorBlindState();
+        }
+        
+        function updateUI() {
+          if (isAdminMode) {
+            adminViewSelector.classList.remove('d-none');
+            adminDashboard.classList.remove('d-none');
+            userDashboard.classList.add('d-none');
+            adminBadge.style.display = 'inline';
+            adminModeBtn.classList.add('active');
+            dashboardTitle.textContent = 'Panel de Administración';
+            dashboardSubtitle.textContent = 'Vista estratégica para la toma de decisiones';
+            // Load admin view
+            loadAdminView('overview');
+          } else {
+            adminViewSelector.classList.add('d-none');
+            adminDashboard.classList.add('d-none');
+            userDashboard.classList.remove('d-none');
+            adminBadge.style.display = 'none';
+            adminModeBtn.classList.remove('active');
+            dashboardTitle.textContent = 'Tu Dashboard';
+            dashboardSubtitle.textContent = 'Estadísticas y métricas de tu actividad';
+          }
+          // Aplicar estado inicial de modo daltonismo sin cambiar la preferencia
+          applyColorBlindState();
+        }
+        
+        // Initialize UI
+        updateUI();
+        
+        // Toggle admin mode on button click
+        if (adminModeBtn) {
+          adminModeBtn.addEventListener('click', toggleAdminMode);
+        }
+
+        // Toggle color blind mode
+        if (colorBlindBtn) {
+          colorBlindBtn.addEventListener('click', toggleColorBlindMode);
+        }
+        
+        // Admin view selector
+        document.querySelectorAll('[data-view]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const view = btn.dataset.view;
+            loadAdminView(view);
+            // Actualizar botón activo
+            document.querySelectorAll('[data-view]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+          });
+        });
+        
+        function loadAdminView(view) {
+          document.querySelectorAll('.dashboard-view-content').forEach(el => {
+            el.classList.add('d-none');
+          });
+          
+          if (view === 'overview') {
+            document.getElementById('strategicView').classList.remove('d-none');
+            initStrategicView();
+          } else if (view === 'tactical') {
+            document.getElementById('tacticalView').classList.remove('d-none');
+            initTacticalView();
+          } else if (view === 'operational') {
+            document.getElementById('operationalView').classList.remove('d-none');
+            initOperationalView();
+          } else if (view === 'analytics') {
+            document.getElementById('analyticsView').classList.remove('d-none');
+            initAnalyticsView();
+          }
+        }
+        
+        // Initialize charts and data for each view
+        function initStrategicView() {
+          // Monthly Trends Chart
+          const monthlyCtx = document.getElementById('monthlyTrendsChart').getContext('2d');
+          new Chart(monthlyCtx, {
+            type: 'line',
+            data: {
+              labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+              datasets: [
+                {
+                  label: 'Usuarios Activos',
+                  data: [1200, 1500, 1450, 1800, 2000, 2200, 2300, 2500, 2400, 2600, 2700, 3000],
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  tension: 0.3,
+                  fill: true
+                },
+                {
+                  label: 'Nuevos Usuarios',
+                  data: [400, 450, 420, 500, 550, 600, 580, 620, 600, 650, 700, 800],
+                  borderColor: 'rgba(54, 162, 235, 1)',
+                  backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                  tension: 0.3,
+                  fill: true
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: false
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+          
+          // User Distribution Chart
+          const userDistCtx = document.getElementById('userDistributionChart').getContext('2d');
+          new Chart(userDistCtx, {
+            type: 'doughnut',
+            data: {
+              labels: ['Nuevos', 'Regulares', 'Premium', 'Inactivos'],
+              datasets: [{
+                data: [25, 40, 25, 10],
+                backgroundColor: [
+                  'rgba(54, 162, 235, 0.7)',
+                  'rgba(75, 192, 192, 0.7)',
+                  'rgba(255, 206, 86, 0.7)',
+                  'rgba(255, 99, 132, 0.7)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }
+          });
+          
+          // Annual Growth Chart
+          const annualCtx = document.getElementById('annualGrowthChart').getContext('2d');
+          new Chart(annualCtx, {
+            type: 'bar',
+            data: {
+              labels: ['2020', '2021', '2022', '2023', '2024'],
+              datasets: [{
+                label: 'Crecimiento Anual',
+                data: [5000, 8000, 12000, 20000, 32000],
+                backgroundColor: 'rgba(153, 102, 255, 0.7)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+        }
+        
+        function initTacticalView() {
+          // Weekly Activity Chart
+          const weeklyCtx = document.getElementById('weeklyActivityChart').getContext('2d');
+          new Chart(weeklyCtx, {
+            type: 'bar',
+            data: {
+              labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+              datasets: [
+                {
+                  label: 'Visitas',
+                  data: [1200, 1900, 1500, 2000, 2100, 1800, 1600],
+                  backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                },
+                {
+                  label: 'Usuarios Activos',
+                  data: [800, 1200, 1000, 1500, 1400, 1200, 900],
+                  backgroundColor: 'rgba(75, 192, 192, 0.7)'
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+          
+          // Content Performance Chart
+          const contentCtx = document.getElementById('contentPerformanceChart').getContext('2d');
+          new Chart(contentCtx, {
+            type: 'radar',
+            data: {
+              labels: ['Tecnología', 'Deportes', 'Política', 'Entretenimiento', 'Ciencia', 'Salud'],
+              datasets: [{
+                label: 'Rendimiento',
+                data: [85, 70, 65, 90, 60, 75],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                r: {
+                  angleLines: {
+                    display: true
+                  },
+                  suggestedMin: 0,
+                  suggestedMax: 100
+                }
+              }
+            }
+          });
+        }
+        
+        function initOperationalView() {
+          // Simulate real-time updates
+          const activities = [
+            { user: 'usuario123', action: 'Inició sesión', page: '/inicio', time: 'Ahora' },
+            { user: 'admin', action: 'Actualizó configuración', page: '/admin/config', time: 'Hace 1 min' },
+            { user: 'usuario456', action: 'Vió noticia', page: '/noticia/123', time: 'Hace 2 min' },
+            { user: 'usuario789', action: 'Comentó', page: '/noticia/456', time: 'Hace 3 min' },
+            { user: 'usuario101', action: 'Cerró sesión', page: '/', time: 'Hace 5 min' }
+          ];
+          
+          const alerts = [
+            { type: 'warning', message: 'Alto tráfico en el servidor', time: 'Hace 2 min' },
+            { type: 'info', message: 'Nuevo usuario registrado: usuario999', time: 'Hace 15 min' },
+            { type: 'success', message: 'Copia de seguridad completada', time: 'Hace 1 hora' },
+            { type: 'danger', message: 'Error en el procesamiento de pago', time: 'Hace 3 horas' }
+          ];
+          
+          // Populate realtime activity
+          const activityTbody = document.getElementById('realtimeActivity');
+          activityTbody.innerHTML = activities.map(activity => `
+            <tr>
+              <td>${activity.user}</td>
+              <td>${activity.action}</td>
+              <td>${activity.page}</td>
+              <td>${activity.time}</td>
+            </tr>
+          `).join('');
+          
+          // Populate system alerts
+          const alertsContainer = document.getElementById('systemAlerts');
+          alertsContainer.innerHTML = alerts.map(alert => `
+            <div class="alert alert-${alert.type} alert-dismissible fade show" role="alert">
+              <div class="d-flex justify-content-between align-items-center">
+                <span>${alert.message}</span>
+                <small class="text-muted">${alert.time}</small>
+              </div>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          `).join('');
+          
+          // Simulate server metrics
+          function updateServerMetrics() {
+            const cpu = Math.floor(Math.random() * 30) + 10; // 10-40%
+            const memory = Math.floor(Math.random() * 40) + 20; // 20-60%
+            
+            document.getElementById('cpuUsage').textContent = `${cpu}%`;
+            document.getElementById('memoryUsage').textContent = `${memory}%`;
+            document.getElementById('cpuBar').style.width = `${cpu}%`;
+            document.getElementById('memoryBar').style.width = `${memory}%`;
+            
+            // Update status colors
+            document.getElementById('cpuBar').className = `progress-bar ${cpu > 70 ? 'bg-danger' : cpu > 40 ? 'bg-warning' : 'bg-success'}`;
+            document.getElementById('memoryBar').className = `progress-bar ${memory > 70 ? 'bg-danger' : memory > 40 ? 'bg-warning' : 'bg-success'}`;
+            
+            // Update last update time
+            const lastUpdate = parseInt(document.getElementById('lastUpdate').textContent) || 0;
+            document.getElementById('lastUpdate').textContent = (lastUpdate + 5) % 60;
+          }
+          
+          updateServerMetrics();
+          setInterval(updateServerMetrics, 5000);
+        }
+
+        function initAnalyticsView() {
+          if (typeof google !== 'undefined' && google.visualization) {
+            drawAnalyticsCharts();
+          } else {
+            google.charts.setOnLoadCallback(drawAnalyticsCharts);
+          }
+        }
+
+        function drawAnalyticsCharts() {
+          const data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Vistas'],
+            ['Tecnología', 45],
+            ['Deportes', 30],
+            ['Política', 25],
+            ['Entretenimiento', 40],
+            ['Ciencia', 20]
+          ]);
+
+          const options = {
+            title: 'Distribución de Vistas por Categoría',
+            backgroundColor: 'transparent',
+            chartArea: { width: '80%', height: '80%' },
+            legend: { position: 'right' }
+          };
+
+          const pieContainer = document.getElementById('googlePieChart');
+          if (pieContainer) {
+            const chart = new google.visualization.PieChart(pieContainer);
+            chart.draw(data, options);
+          }
+
+          initDCAnalytics();
+        }
+
+        function initDCAnalytics() {
+          // Datos de ejemplo: actividad total por categoría y hora
+          const raw = [
+            { hour: '06:00', category: 'Tecnología', views: 15 },
+            { hour: '09:00', category: 'Tecnología', views: 30 },
+            { hour: '12:00', category: 'Tecnología', views: 55 },
+            { hour: '18:00', category: 'Tecnología', views: 40 },
+            { hour: '21:00', category: 'Tecnología', views: 25 },
+            { hour: '06:00', category: 'Deportes', views: 10 },
+            { hour: '09:00', category: 'Deportes', views: 18 },
+            { hour: '12:00', category: 'Deportes', views: 28 },
+            { hour: '18:00', category: 'Deportes', views: 22 },
+            { hour: '21:00', category: 'Deportes', views: 15 },
+            { hour: '06:00', category: 'Política', views: 5 },
+            { hour: '09:00', category: 'Política', views: 9 },
+            { hour: '12:00', category: 'Política', views: 16 },
+            { hour: '18:00', category: 'Política', views: 14 },
+            { hour: '21:00', category: 'Política', views: 10 }
+          ];
+
+          const ndx = crossfilter(raw);
+          const hourDim = ndx.dimension(d => d.hour);
+          const categoryDim = ndx.dimension(d => d.category);
+          const hourGroup = hourDim.group().reduceSum(d => d.views);
+          const categoryGroup = categoryDim.group().reduceSum(d => d.views);
+
+          // Ordenar las horas de forma cronológica
+          const hourDomain = hourGroup.all()
+            .map(d => d.key)
+            .sort((a, b) => {
+              // Comparación simple HH:MM
+              return a.localeCompare(b);
+            });
+
+          const timeChart = dc.lineChart('#time-chart');
+          const timeContainer = document.getElementById('time-chart');
+          const timeWidth = timeContainer ? timeContainer.clientWidth || 400 : 400;
+          // Usamos una escala de bandas porque DC 4 espera paddingInner en escalas categóricas
+          const xScale = d3.scaleBand().domain(hourDomain).range([0, timeWidth]);
+          timeChart
+            .width(timeWidth)
+            .height(250)
+            .margins({top: 20, right: 30, bottom: 30, left: 40})
+            .dimension(hourDim)
+            .group(hourGroup)
+            .x(xScale)
+            .xUnits(dc.units.ordinal)
+            .renderArea(true)
+            .elasticY(true)
+            .renderHorizontalGridLines(true)
+            .brushOn(false);
+
+          const categoryChart = dc.rowChart('#category-chart');
+          const catContainer = document.getElementById('category-chart');
+          const catWidth = catContainer ? catContainer.clientWidth || 400 : 400;
+          categoryChart
+            .width(catWidth)
+            .height(250)
+            .margins({top: 20, right: 10, bottom: 20, left: 40})
+            .dimension(categoryDim)
+            .group(categoryGroup)
+            .elasticX(true);
+
+          const dataCount = dc.dataCount('#dc-data-count');
+          dataCount.dimension(ndx).group(ndx.groupAll());
+
+          dc.renderAll();
+        }
+
+        window.Premium?.applyThemeFromStorage();
+        window.Premium?.renderBadge('#premiumBadge');
+
+        // Theme toggle
+        const btnTheme = document.getElementById('btnToggleTheme');
+        if(btnTheme) btnTheme.addEventListener('click', ()=>{ window.Premium.toggleTheme(); });
+
+        const metrics = window.Metrics?.getAll();
+        const saved = JSON.parse(localStorage.getItem('np_saved') || '[]');
+        const notif = JSON.parse(localStorage.getItem('np_notifications') || '{}');
+
+        const totalViews = Object.values(metrics?.articleViews || {}).reduce((a,b)=>a+b,0);
+        const avgTimeSec = Math.round((metrics?.dwellTimeSec || 0) / Math.max(1, (metrics?.sessions || 1)));
+
+        document.getElementById('avgTime').textContent = `${avgTimeSec}s`;
+        document.getElementById('totalViews').textContent = totalViews;
+        document.getElementById('savedCount').textContent = saved.length;
+
+        const today = new Date().toISOString().slice(0,10);
+        const used = (notif[today]?.count) || 0;
+        document.getElementById('notifUsed').textContent = `${used}/5`;
+
+        const catCounts = metrics?.categoryViews || {};
+        renderBars(catCounts);
+        renderSaved(saved);
+      });
+
+      function renderBars(data) {
+        const container = document.getElementById('categoriesBars');
+        container.innerHTML = '';
+        const entries = Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,8);
+        entries.forEach(([cat, count]) => {
+          const row = document.createElement('div');
+          row.className = 'bar-row';
+          const label = document.createElement('span');
+          label.textContent = `${cat}`;
+          const bar = document.createElement('div');
+          bar.className = 'bar';
+          bar.style.width = `${Math.min(100, count * 10)}%`;
+          bar.textContent = count;
+          row.appendChild(label); row.appendChild(bar);
+          container.appendChild(row);
+        });
+        if (entries.length === 0) container.innerHTML = '<div class="text-muted">Sin datos aún.</div>';
+      }
+
+      function renderSaved(items){
+        const ul = document.getElementById('savedList');
+        ul.innerHTML='';
+        items.forEach(it => {
+          const li = document.createElement('li');
+          li.className='list-group-item';
+          li.innerHTML = `<a href="${it.url}" target="_blank" class="text-decoration-none">${it.title}</a>`;
+          ul.appendChild(li);
+        });
+        if(items.length===0){ 
+          ul.innerHTML = '<li class="list-group-item text-muted text-center py-4"><i class="bi bi-inbox me-2"></i>Nada guardado aún</li>'; 
+        }
+      }
+    </script>
+  </body>
+</html>

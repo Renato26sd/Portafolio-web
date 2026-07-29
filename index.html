@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Portafolio | Desarrollo Web para Negocios</title>
+    <meta
+      name="description"
+      content="Portafolio profesional de proyectos web. Diseño de páginas para negocios, landing pages y sitios modernos." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+      window.PORTFOLIO_CONFIG = {
+        whatsappPhone: "51955212016",
+        whatsappMessage: "Hola, vi tu portafolio y me interesa una página web para mi negocio.",
+      };
+    </script>
+  </head>
+  <body>
+    <div class="bg">
+      <div class="bg__glow bg__glow--1"></div>
+      <div class="bg__glow bg__glow--2"></div>
+      <div class="bg__grid"></div>
+    </div>
+
+    <header class="header">
+      <div class="container header__inner">
+        <a class="brand" href="#inicio" aria-label="Inicio">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__text">Renato Susaya</span>
+        </a>
+
+        <nav class="nav" aria-label="Navegación">
+          <a class="nav__link" href="#proyectos">Proyectos</a>
+          <a class="nav__link" href="#servicios">Servicios</a>
+          <a class="nav__link" href="#sobre-mi">Sobre mí</a>
+          <a class="nav__link" href="#contacto">Contacto</a>
+        </nav>
+
+        <a class="btn btn--ghost header__cta" href="#contacto">Cotizar</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="inicio" class="section hero">
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <div class="pill" data-animate>
+              <span class="pill__dot" aria-hidden="true"></span>
+              <span>Diseño y desarrollo web para negocios</span>
+            </div>
+
+            <h1 class="hero__title" data-animate>
+              Páginas web modernas que convierten visitas en clientes.
+            </h1>
+
+            <p class="hero__subtitle" data-animate>
+              Soy desarrollador web y estudiante de Ingeniería en Sistemas. Creo sitios rápidos, responsivos y con diseño premium para marcas que quieren verse profesionales.
+            </p>
+
+            <div class="hero__actions" data-animate>
+              <a class="btn btn--primary" id="cta-whatsapp" href="#">Contactar por WhatsApp</a>
+              <a class="btn btn--ghost" href="#proyectos">Ver proyectos</a>
+            </div>
+
+            <div class="hero__trust" data-animate>
+              <div class="hero__trustItem">
+                <div class="hero__trustLabel">Entrega rápida</div>
+                <div class="hero__trustValue">Diseños listos para vender</div>
+              </div>
+              <div class="hero__trustItem">
+                <div class="hero__trustLabel">Mobile-first</div>
+                <div class="hero__trustValue">Perfecto en celular</div>
+              </div>
+              <div class="hero__trustItem">
+                <div class="hero__trustLabel">Optimizado</div>
+                <div class="hero__trustValue">Carga veloz</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__card" data-animate>
+            <div class="glass heroCard">
+              <div class="heroCard__top">
+                <div class="heroCard__avatar" aria-hidden="true">
+                  <span>RS</span>
+                </div>
+                <div class="heroCard__meta">
+                  <div class="heroCard__name">Renato Susaya</div>
+                  <div class="heroCard__role">Desarrollador Web</div>
+                </div>
+              </div>
+
+              <div class="heroCard__divider"></div>
+
+              <div class="heroCard__stack">
+                <div class="chip">Landing pages</div>
+                <div class="chip">Web para negocios</div>
+                <div class="chip">UI moderna</div>
+                <div class="chip">Responsive</div>
+              </div>
+
+              <div class="heroCard__bottom">
+                <div class="heroCard__signal">
+                  <span class="dot dot--ok" aria-hidden="true"></span>
+                  <span>Disponible para nuevos proyectos</span>
+                </div>
+                <a class="btn btn--primary btn--small" href="#contacto">Hablemos</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="proyectos" class="section">
+        <div class="container">
+          <div class="sectionHead" data-animate>
+            <h2 class="sectionHead__title">Portafolio de proyectos</h2>
+            <p class="sectionHead__subtitle">
+              Algunos sitios que he desarrollado. Cada proyecto se abre en su propia carpeta.
+            </p>
+          </div>
+
+          <div class="toolbar" data-animate>
+            <input
+              id="search"
+              class="input"
+              type="search"
+              placeholder="Buscar proyecto..."
+              autocomplete="off" />
+          </div>
+
+          <div id="projects" class="grid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="servicios" class="section">
+        <div class="container">
+          <div class="sectionHead" data-animate>
+            <h2 class="sectionHead__title">Servicios</h2>
+            <p class="sectionHead__subtitle">
+              Soluciones enfocadas en presencia digital, credibilidad y ventas.
+            </p>
+          </div>
+
+          <div class="grid grid--services">
+            <article class="card" data-animate>
+              <div class="card__icon" aria-hidden="true">01</div>
+              <h3 class="card__title">Diseño web para negocios</h3>
+              <p class="card__text">Sitios profesionales para restaurantes, tiendas, servicios y marcas que necesitan verse confiables.</p>
+            </article>
+
+            <article class="card" data-animate>
+              <div class="card__icon" aria-hidden="true">02</div>
+              <h3 class="card__title">Landing pages</h3>
+              <p class="card__text">Páginas de una sola intención: captar leads, WhatsApp o ventas con copy y diseño enfocado.</p>
+            </article>
+
+            <article class="card" data-animate>
+              <div class="card__icon" aria-hidden="true">03</div>
+              <h3 class="card__title">Páginas publicitarias</h3>
+              <p class="card__text">Estructura ideal para campañas en redes: secciones claras, confianza y llamados a la acción.</p>
+            </article>
+
+            <article class="card" data-animate>
+              <div class="card__icon" aria-hidden="true">04</div>
+              <h3 class="card__title">Sitios modernos y responsive</h3>
+              <p class="card__text">Interfaces limpias, animaciones sutiles, carga rápida y adaptación perfecta a celular, tablet y PC.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="sobre-mi" class="section">
+        <div class="container about">
+          <div class="about__left" data-animate>
+            <div class="sectionHead sectionHead--left">
+              <h2 class="sectionHead__title">Sobre mí</h2>
+              <p class="sectionHead__subtitle">
+                Estudiante de Ingeniería en Sistemas y desarrollador web enfocado en ayudar a negocios a verse profesionales en internet.
+              </p>
+            </div>
+
+            <div class="about__points">
+              <div class="aboutPoint">
+                <div class="aboutPoint__title">Enfoque en negocio</div>
+                <div class="aboutPoint__text">Diseño orientado a conversiones: WhatsApp, formularios, llamadas y confianza.</div>
+              </div>
+              <div class="aboutPoint">
+                <div class="aboutPoint__title">Diseño premium</div>
+                <div class="aboutPoint__text">Estética moderna tipo agencia: glassmorphism, gradientes, tipografía y microinteracciones.</div>
+              </div>
+              <div class="aboutPoint">
+                <div class="aboutPoint__title">Listo para escalar</div>
+                <div class="aboutPoint__text">El portafolio carga proyectos desde un JSON, así puedes agregar nuevos sin rediseñar.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about__right" data-animate>
+            <div class="glass aboutCard">
+              <div class="aboutCard__title">Stack & habilidades</div>
+              <div class="aboutCard__chips">
+                <div class="chip">HTML</div>
+                <div class="chip">CSS</div>
+                <div class="chip">JavaScript</div>
+                <div class="chip">UI/UX</div>
+                <div class="chip">Responsive</div>
+                <div class="chip">SEO básico</div>
+                <div class="chip">Performance</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="stats" data-animate>
+            <div class="stat">
+              <div class="stat__value" data-counter data-value="12">0</div>
+              <div class="stat__label">Proyectos realizados</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value" data-counter data-value="6">0</div>
+              <div class="stat__label">Clientes atendidos</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value" data-counter data-value="2">0</div>
+              <div class="stat__label">Años desarrollando</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value" data-counter data-value="100">0</div>
+              <div class="stat__label">% responsive</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" class="section">
+        <div class="container">
+          <div class="cta" data-animate>
+            <div class="cta__left">
+              <h2 class="cta__title">¿Listo para que tu negocio se vea profesional?</h2>
+              <p class="cta__text">
+                Escríbeme y cuéntame qué necesitas. Te respondo con una propuesta clara y rápida.
+              </p>
+            </div>
+            <div class="cta__right">
+              <a class="btn btn--primary" id="cta-whatsapp-2" href="#">Hablar por WhatsApp</a>
+              <a class="btn btn--ghost" href="#proyectos">Ver portafolio</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <a class="wa" id="wa-float" href="#" aria-label="WhatsApp">
+        <span class="wa__icon" aria-hidden="true"></span>
+      </a>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <div class="brand brand--footer">
+            <span class="brand__mark" aria-hidden="true"></span>
+            <span class="brand__text">Renato Susaya</span>
+          </div>
+          <div class="footer__tag">Desarrollo web moderno para negocios.</div>
+        </div>
+
+        <div class="footer__cols">
+          <div class="footer__col">
+            <div class="footer__title">Contacto</div>
+            <a class="footer__link" id="footer-whatsapp" href="#">WhatsApp</a>
+            <a class="footer__link" href="mailto:renatosusaya381@gmail.com">renatosusaya381@gmail.com</a>
+          </div>
+          <div class="footer__col">
+            <div class="footer__title">Redes</div>
+            <a class="footer__link" href="#" target="_blank" rel="noreferrer">Instagram</a>
+            <a class="footer__link" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+          <div class="footer__col">
+            <div class="footer__title">Secciones</div>
+            <a class="footer__link" href="#proyectos">Proyectos</a>
+            <a class="footer__link" href="#servicios">Servicios</a>
+            <a class="footer__link" href="#sobre-mi">Sobre mí</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container footer__bottom">
+        <div class="footer__copy">© <span id="year"></span> Renato Susaya. Todos los derechos reservados.</div>
+        <div class="footer__note">Listo para dominio profesional.</div>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

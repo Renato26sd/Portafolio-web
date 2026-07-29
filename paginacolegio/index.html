@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Colegio de alta calidad educativa: valores, respeto, disciplina y excelencia académica." />
+    <title>Colegio - Excelencia Académica</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#inicio">Saltar al contenido principal</a>
+
+    <header class="header" id="top">
+      <div class="container header__inner">
+        <a class="brand" href="#inicio" aria-label="Ir a Inicio">
+          <img class="brand__logo" src="imagenes/logo.jpg" alt="Logo del Colegio" />
+          <div class="brand__text">
+            <span class="brand__name">Colegio</span>
+            <span class="brand__tag">Excelencia & Valores</span>
+          </div>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+
+        <nav class="nav" aria-label="Navegación principal">
+          <ul class="nav__list">
+            <li><a class="nav__link" href="#inicio">Inicio</a></li>
+            <li><a class="nav__link" href="#nosotros">Nosotros</a></li>
+            <li><a class="nav__link" href="#actividades">Actividades</a></li>
+            <li><a class="nav__link" href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="hero__bg" role="img" aria-label="Fachada del colegio"></div>
+        <div class="hero__overlay"></div>
+
+        <div class="container hero__content">
+          <div class="hero__badge reveal">
+            <span class="dot"></span>
+            Educación de calidad • Disciplina • Valores
+          </div>
+
+          <h1 class="hero__title reveal">
+            Formando estudiantes con valores, respeto y <span>excelencia académica</span>
+          </h1>
+
+          <p class="hero__subtitle reveal">
+            Un colegio moderno con enseñanza sólida, acompañamiento constante y formación integral para el futuro de tus hijos.
+          </p>
+
+          <div class="hero__actions reveal">
+            <a class="btn btn--primary" href="#contacto">Solicitar información</a>
+            <a class="btn btn--ghost" href="#actividades">Ver actividades</a>
+          </div>
+
+          <div class="hero__stats reveal">
+            <div class="stat">
+              <div class="stat__value">Alta</div>
+              <div class="stat__label">Calidad educativa</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">Valores</div>
+              <div class="stat__label">Respeto y disciplina</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">Integral</div>
+              <div class="stat__label">Formación completa</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="nosotros">
+        <div class="container">
+          <div class="section__head">
+            <p class="kicker reveal">Nosotros</p>
+            <h2 class="section__title reveal">Un colegio de alto nivel, comprometido con el futuro</h2>
+            <p class="section__lead reveal">
+              Promovemos una educación de calidad con una enseñanza exigente, respeto, buena conducta y formación en valores.
+            </p>
+          </div>
+
+          <div class="about">
+            <div class="about__content reveal">
+              <div class="feature">
+                <h3 class="feature__title">Educación de calidad</h3>
+                <p class="feature__text">
+                  Metodologías modernas, docentes comprometidos y seguimiento continuo para asegurar un aprendizaje sólido.
+                </p>
+              </div>
+              <div class="feature">
+                <h3 class="feature__title">Buena enseñanza</h3>
+                <p class="feature__text">
+                  Planes de estudio orientados a la excelencia, con acompañamiento académico y hábitos de estudio.
+                </p>
+              </div>
+              <div class="feature">
+                <h3 class="feature__title">Respeto y conducta</h3>
+                <p class="feature__text">
+                  Fomentamos la convivencia, el respeto y la disciplina, fortaleciendo el carácter y la responsabilidad.
+                </p>
+              </div>
+              <div class="feature">
+                <h3 class="feature__title">Formación integral</h3>
+                <p class="feature__text">
+                  Impulsamos el desarrollo emocional, social y cultural para formar estudiantes íntegros.
+                </p>
+              </div>
+            </div>
+
+            <div class="about__card reveal">
+              <div class="about__cardTop">
+                <div class="pill">Excelencia académica</div>
+                <div class="pill pill--gold">Formación en valores</div>
+              </div>
+              <p class="about__quote">
+                “Creemos en una educación que transforma: conocimiento con disciplina, y disciplina con respeto.”
+              </p>
+              <div class="about__divider"></div>
+              <div class="about__mini">
+                <div class="mini">
+                  <span class="mini__label">Enfoque</span>
+                  <span class="mini__value">Aprendizaje + Valores</span>
+                </div>
+                <div class="mini">
+                  <span class="mini__label">Clima escolar</span>
+                  <span class="mini__value">Ordenado y seguro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="actividades">
+        <div class="container">
+          <div class="section__head">
+            <p class="kicker reveal">Actividades</p>
+            <h2 class="section__title reveal">Cultura y participación durante todo el año</h2>
+            <p class="section__lead reveal">
+              Realizamos actividades culturales y artísticas que fortalecen la confianza, el trabajo en equipo y el orgullo escolar.
+            </p>
+          </div>
+
+          <div class="gallery" aria-label="Galería de actividades culturales">
+            <button class="gallery__item reveal" type="button" data-lightbox-src="imagenes/danza1.jpg" aria-label="Abrir imagen de actividad 1">
+              <img src="imagenes/danza1.jpg" alt="Actividad cultural - Danza 1" loading="lazy" />
+              <span class="gallery__caption">Actividades culturales</span>
+            </button>
+            <button class="gallery__item reveal" type="button" data-lightbox-src="imagenes/danza2.jpg" aria-label="Abrir imagen de actividad 2">
+              <img src="imagenes/danza2.jpg" alt="Actividad cultural - Danza 2" loading="lazy" />
+              <span class="gallery__caption">Presentaciones</span>
+            </button>
+            <button class="gallery__item reveal" type="button" data-lightbox-src="imagenes/danza3.jpg" aria-label="Abrir imagen de actividad 3">
+              <img src="imagenes/danza3.jpg" alt="Actividad cultural - Danza 3" loading="lazy" />
+              <span class="gallery__caption">Arte y expresión</span>
+            </button>
+            <button class="gallery__item reveal" type="button" data-lightbox-src="imagenes/danza4.jpg" aria-label="Abrir imagen de actividad 4">
+              <img src="imagenes/danza4.jpg" alt="Actividad cultural - Danza 4" loading="lazy" />
+              <span class="gallery__caption">Cultura escolar</span>
+            </button>
+            <button class="gallery__item reveal" type="button" data-lightbox-src="imagenes/danza5.jpg" aria-label="Abrir imagen de actividad 5">
+              <img src="imagenes/danza5.jpg" alt="Actividad cultural - Danza 5" loading="lazy" />
+              <span class="gallery__caption">Convivencia</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="valores">
+        <div class="container">
+          <div class="section__head">
+            <p class="kicker reveal">Valores del colegio</p>
+            <h2 class="section__title reveal">Principios que guían nuestra formación</h2>
+            <p class="section__lead reveal">
+              La educación va más allá del aula: cultivamos hábitos, actitudes y competencias para la vida.
+            </p>
+          </div>
+
+          <div class="cards">
+            <article class="card reveal">
+              <div class="card__icon" aria-hidden="true">R</div>
+              <h3 class="card__title">Respeto</h3>
+              <p class="card__text">Promovemos la convivencia, la empatía y el buen trato dentro y fuera del aula.</p>
+            </article>
+            <article class="card reveal">
+              <div class="card__icon" aria-hidden="true">D</div>
+              <h3 class="card__title">Disciplina</h3>
+              <p class="card__text">Orden y responsabilidad para construir hábitos de estudio y una conducta ejemplar.</p>
+            </article>
+            <article class="card reveal">
+              <div class="card__icon" aria-hidden="true">Q</div>
+              <h3 class="card__title">Educación de Calidad</h3>
+              <p class="card__text">Enseñanza sólida, exigencia académica y acompañamiento continuo al estudiante.</p>
+            </article>
+            <article class="card reveal">
+              <div class="card__icon card__icon--gold" aria-hidden="true">F</div>
+              <h3 class="card__title">Formación Integral</h3>
+              <p class="card__text">Desarrollo académico, cultural y personal para un futuro con propósito.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="contacto">
+        <div class="container">
+          <div class="section__head">
+            <p class="kicker reveal">Contacto</p>
+            <h2 class="section__title reveal">¿Listo para conocer más?</h2>
+            <p class="section__lead reveal">
+              Escríbenos por WhatsApp y te brindaremos información sobre la matrícula y todos los detalles.
+            </p>
+          </div>
+
+          <div class="contact">
+            <div class="contact__info reveal">
+              <div class="infoBox">
+                <h3 class="infoBox__title">Atención rápida</h3>
+                <p class="infoBox__text">Resolvemos tus dudas y te guiamos en el proceso de matrícula.</p>
+                <a class="btn btn--primary" href="#" id="cta-whatsapp">Contactar por WhatsApp</a>
+              </div>
+
+              <div class="infoGrid">
+                <div class="infoGrid__item">
+                  <span class="infoGrid__label">Horario</span>
+                  <span class="infoGrid__value">Lun - Vie • 8:00 a 17:00</span>
+                </div>
+                <div class="infoGrid__item">
+                  <span class="infoGrid__label">Modalidad</span>
+                  <span class="infoGrid__value">Formación académica y en valores</span>
+                </div>
+                <div class="infoGrid__item">
+                  <span class="infoGrid__label">Enfoque</span>
+                  <span class="infoGrid__value">Excelencia, disciplina y respeto</span>
+                </div>
+                <div class="infoGrid__item">
+                  <span class="infoGrid__label">Actividades</span>
+                  <span class="infoGrid__value">Culturales durante el año</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact__formWrap reveal">
+              <form class="form" id="contact-form">
+                <div class="form__row">
+                  <label class="form__label" for="nombre">Nombre</label>
+                  <input class="form__input" id="nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="name" />
+                </div>
+                <div class="form__row">
+                  <label class="form__label" for="telefono">Teléfono</label>
+                  <input class="form__input" id="telefono" name="telefono" type="tel" placeholder="Tu número" autocomplete="tel" />
+                </div>
+                <div class="form__row">
+                  <label class="form__label" for="mensaje">Mensaje</label>
+                  <textarea class="form__input form__textarea" id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos qué información necesitas"></textarea>
+                </div>
+
+                <button class="btn btn--ghost btn--full" type="submit">Enviar (abre WhatsApp)</button>
+
+                <p class="form__hint">Al enviar se abrirá WhatsApp con un mensaje predefinido (puedes editarlo antes de enviarlo).</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p>© 2026 Colegio - Todos los derechos reservados</p>
+        <a class="footer__top" href="#top">Volver arriba</a>
+      </div>
+    </footer>
+
+    <a class="wa" id="wa-float" href="#" aria-label="Abrir WhatsApp">
+      <span class="wa__icon" aria-hidden="true">WA</span>
+      <span class="wa__text">WhatsApp</span>
+    </a>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox__backdrop" data-lightbox-close></div>
+      <div class="lightbox__dialog" role="dialog" aria-modal="true" aria-label="Vista previa de imagen">
+        <button class="lightbox__close" type="button" data-lightbox-close aria-label="Cerrar">×</button>
+        <img class="lightbox__img" id="lightbox-img" alt="Vista previa" />
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
