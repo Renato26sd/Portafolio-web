@@ -1,0 +1,62 @@
+
+print("===================================")
+print("       CALCULADORA BASICA")
+print("===================================")
+print("1. Suma")
+print("2. Resta")
+print("3. Multiplicación")
+print("4. División")
+print("5. Potencia")
+print("6. Raíz cuadrada")
+print("===================================")
+
+opcion = int(input("Seleccione una opción: "))
+
+match opcion:
+
+    case 1:
+        num1 = float(input("Ingrese el primer número: "))
+        num2 = float(input("Ingrese el segundo número: "))
+        resultado = num1 + num2
+        print(f"Resultado: {resultado}")
+
+    case 2:
+        num1 = float(input("Ingrese el primer número: "))
+        num2 = float(input("Ingrese el segundo número: "))
+        resultado = num1 - num2
+        print(f"Resultado: {resultado}")
+
+    case 3:
+        num1 = float(input("Ingrese el primer número: "))
+        num2 = float(input("Ingrese el segundo número: "))
+        resultado = num1 * num2
+        print(f"Resultado: {resultado}")
+
+    case 4:
+        num1 = float(input("Ingrese el dividendo: "))
+        num2 = float(input("Ingrese el divisor: "))
+
+        if num2 != 0:
+            resultado = num1 / num2
+            print(f"Resultado: {resultado}")
+        else:
+            print("Error: No se puede dividir entre cero.")
+
+    case 5:
+        base = float(input("Ingrese la base: "))
+        exponente = float(input("Ingrese el exponente: "))
+        resultado = base ** exponente
+        print(f"Resultado: {resultado}")
+
+    case 6:
+        import math
+        numero = float(input("Ingrese un número: "))
+
+        if numero >= 0:
+            resultado = math.sqrt(numero)
+            print(f"Resultado: {resultado}")
+        else:
+            print("Error: No existe raíz cuadrada real de un número negativo.")
+
+    case _:
+        print("Opción no válida.")

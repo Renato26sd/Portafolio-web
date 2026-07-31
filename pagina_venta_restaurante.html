@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante El Sabor Auténtico - Experiencia Gastronómica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #e94560;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e94560;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: #e94560;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        .cta-button:hover {
+            background: #c73e54;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #1a1a2e;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #e94560;
+            margin-bottom: 15px;
+        }
+
+        /* Menu Section */
+        .menu {
+            background: #1a1a2e;
+            color: white;
+            padding: 80px 20px;
+        }
+
+        .menu h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-category {
+            margin-bottom: 50px;
+        }
+
+        .menu-category h3 {
+            color: #e94560;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e94560;
+            padding-bottom: 10px;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-item-info h4 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .menu-item-info p {
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        .menu-item-price {
+            font-size: 1.3em;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        /* Reservation Section */
+        .reservation {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .reservation h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #1a1a2e;
+        }
+
+        .reservation-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #1a1a2e;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+
+        .submit-button {
+            background: #e94560;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .submit-button:hover {
+            background: #c73e54;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: #f8f8f8;
+            padding: 80px 20px;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #1a1a2e;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #e94560;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .testimonial-author-name {
+            font-weight: bold;
+            color: #1a1a2e;
+        }
+
+        .testimonial-author-rating {
+            color: #ffd700;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #1a1a2e;
+            color: white;
+            padding: 80px 20px;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info h3 {
+            color: #e94560;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-hours {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .contact-hours h4 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f0f1a;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #e94560;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+
+            .hero-content p {
+                font-size: 1.2em;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">🍽️ El Sabor Auténtico</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#menu">Menú</a></li>
+                <li><a href="#reservas">Reservas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>El Sabor Auténtico</h1>
+            <p>Descubre una experiencia gastronómica única con los mejores ingredientes y recetas tradicionales</p>
+            <a href="#reservas" class="cta-button">Reservar Mesa</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>¿Por qué elegirnos?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🍳</div>
+                <h3>Chefs Expertos</h3>
+                <p>Equipo de chefs con más de 20 años de experiencia en cocina internacional</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🥬</div>
+                <h3>Ingredientes Frescos</h3>
+                <p>Productos locales y de temporada para garantizar la máxima calidad</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍷</div>
+                <h3>Vinos Selectos</h3>
+                <p>Carta de vinos cuidadosamente seleccionada para acompañar cada plato</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎉</div>
+                <h3>Eventos Especiales</h3>
+                <p>Organizamos tus eventos corporativos y celebraciones especiales</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <h2>Nuestro Menú</h2>
+        <div class="menu-container">
+            <div class="menu-category">
+                <h3>Entradas</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Bruschetta Italiana</h4>
+                            <p>Tomate fresco, albahaca y aceite de oliva</p>
+                        </div>
+                        <div class="menu-item-price">S/ 13</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Ceviche Peruano</h4>
+                            <p>Pescado fresco, limón y cilantro</p>
+                        </div>
+                        <div class="menu-item-price">S/ 15</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Caldo de Res</h4>
+                            <p>Sabor tradicional con vegetales frescos</p>
+                        </div>
+                        <div class="menu-item-price">S/ 11</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Queso Fundido</h4>
+                            <p>Queso derretido con chorizo y tortillas</p>
+                        </div>
+                        <div class="menu-item-price">S/ 12</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3>Platos Principales</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Filet Mignon</h4>
+                            <p>Carne premium con salsa de vino tinto</p>
+                        </div>
+                        <div class="menu-item-price">S/ 35</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Salmón a la Parrilla</h4>
+                            <p>Con espárragos y salsa de limón</p>
+                        </div>
+                        <div class="menu-item-price">S/ 29</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Pasta Carbonara</h4>
+                            <p>Con panceta crujiente y parmesano</p>
+                        </div>
+                        <div class="menu-item-price">S/ 23</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Pollo al Limón</h4>
+                            <p>Con puré de papas y vegetales</p>
+                        </div>
+                        <div class="menu-item-price">S/ 25</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3>Postres</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Tiramisú</h4>
+                            <p>Clásico italiano con mascarpone</p>
+                        </div>
+                        <div class="menu-item-price">S/ 9</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Volcán de Chocolate</h4>
+                            <p>Con helado de vainilla</p>
+                        </div>
+                        <div class="menu-item-price">S/ 10</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4>Cheesecake de Frutos Rojos</h4>
+                            <p>Fresco y cremoso</p>
+                        </div>
+                        <div class="menu-item-price">S/ 9</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section class="reservation" id="reservas">
+        <h2>Reserva tu Mesa</h2>
+        <form class="reservation-form" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="name">Nombre Completo</label>
+                <input type="text" id="name" required placeholder="Tu nombre">
+            </div>
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" required placeholder="tu@email.com">
+            </div>
+            <div class="form-group">
+                <label for="phone">Teléfono</label>
+                <input type="tel" id="phone" required placeholder="+1 234 567 890">
+            </div>
+            <div class="form-group">
+                <label for="date">Fecha</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Hora</label>
+                <select id="time" required>
+                    <option value="">Selecciona una hora</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="13:00">1:00 PM</option>
+                    <option value="14:00">2:00 PM</option>
+                    <option value="18:00">6:00 PM</option>
+                    <option value="19:00">7:00 PM</option>
+                    <option value="20:00">8:00 PM</option>
+                    <option value="21:00">9:00 PM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="guests">Número de Personas</label>
+                <select id="guests" required>
+                    <option value="">Selecciona el número</option>
+                    <option value="1">1 persona</option>
+                    <option value="2">2 personas</option>
+                    <option value="3">3 personas</option>
+                    <option value="4">4 personas</option>
+                    <option value="5">5 personas</option>
+                    <option value="6">6+ personas</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">Mensaje Adicional (opcional)</label>
+                <textarea id="message" rows="3" placeholder="Alguna solicitud especial..."></textarea>
+            </div>
+            <button type="submit" class="submit-button">Confirmar Reserva</button>
+        </form>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"La mejor experiencia gastronómica que he tenido. Los platos son increíbles y el servicio impecable."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-author-avatar">MA</div>
+                    <div>
+                        <div class="testimonial-author-name">María González</div>
+                        <div class="testimonial-author-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Vengo regularmente con mi familia. Siempre nos tratan como en casa. El filet mignon es espectacular."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-author-avatar">CR</div>
+                    <div>
+                        <div class="testimonial-author-name">Carlos Rodríguez</div>
+                        <div class="testimonial-author-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Celebramos nuestro aniversario aquí y fue perfecto. La decoración, la comida y el servicio fueron excepcionales."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-author-avatar">AL</div>
+                    <div>
+                        <div class="testimonial-author-name">Ana López</div>
+                        <div class="testimonial-author-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <h2>Contáctanos</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Información de Contacto</h3>
+                <p>📍 Calle Principal 123, Ciudad</p>
+                <p>📞 +51 912 345 678</p>
+                <p>✉️ renatosusaya@gmail.com</p>
+                
+                <div class="contact-hours">
+                    <h4>Horario de Atención</h4>
+                    <p>Lunes - Jueves: 12:00 PM - 10:00 PM</p>
+                    <p>Viernes - Sábado: 12:00 PM - 11:00 PM</p>
+                    <p>Domingo: 12:00 PM - 9:00 PM</p>
+                </div>
+            </div>
+            <div class="contact-info">
+                <h3>Síguenos</h3>
+                <p>Encuéntranos en redes sociales para promociones exclusivas y actualizaciones sobre nuestros eventos especiales.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#">📘</a>
+            <a href="#">📸</a>
+            <a href="#">🐦</a>
+            <a href="#">📺</a>
+        </div>
+        <p>&copy; 2026 El Sabor Auténtico. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const guests = document.getElementById('guests').value;
+            
+            alert(`¡Gracias ${name}! Tu reserva para ${guests} persona(s) el ${date} a las ${time} ha sido confirmada. Te enviaremos un correo de confirmación.`);
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Set minimum date to today for reservation
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    </script>
+</body>
+</html>
